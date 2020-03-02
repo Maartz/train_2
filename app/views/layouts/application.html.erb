@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Train</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <%= render "layouts/navbar" %>
+
+  <% flash.each do |type, message| %>
+  <% if type == "alert" %>
+  <div class="alert alert-danger" role="danger">
+    <h4 class="alert-heading">Attention !</h4>
+    <div class="d-flex text-center">
+      <p>
+        <%= message %>
+      </p>
+    </div>
+  </div>
+  <% end %>
+  <% if type == "notice" %>
+  <div class="alert alert-success" role="success">
+    <h4 class="alert-heading">Info:</h4>
+    <div class="d-flex text-center">
+      <p>
+        <%= message %>
+      </p>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+
+</html>
