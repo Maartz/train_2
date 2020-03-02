@@ -16,14 +16,19 @@
 
   <div class="row">
     <div class="col">
-      <%= form.label :station_number, value: 'Numéro' %>
+      <h4><%= form.label :station_number, value: 'Numéro' %></h4>
       <%= form.text_field :station_number ,  class: 'form-control', placeholder: '31B' %>
     </div>
     <div class="col">
-      <%= form.label :station_name, value: 'Nom' %>
+      <h4><%= form.label :station_name, value: 'Nom' %></h4>
       <%= form.text_field :station_name, class: 'form-control', placeholder: 'Atelier Aval' %>
     </div>
   </div>
+  <br>
+  <div>
+      <h4><%= form.label :station_name, value: 'Description' %></h4>
+      <%= form.text_area :description, class: 'form-control', rows: 10 , placeholder: 'Une chose importante à noté ? C\'est ici que cela ce passe...' %>
+    </div>
   <br />
   <div class="actions">
     <%= form.submit 'Créer', class: 'btn btn-primary btn-lg' %>

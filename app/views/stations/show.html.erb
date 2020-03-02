@@ -1,12 +1,23 @@
+<h3><strong>Numéro:</strong></h3>
+<hr>
 <p>
-  <strong>Numéro:</strong>
   <%= @station.station_number %>
 </p>
-
+<br/>
+<h3><strong>Nom:</strong></h3>
+<hr>
 <p>
-  <strong>Nom:</strong>
   <%= @station.station_name %>
 </p>
+<br/>
+<h3><strong>Description:</strong></h3>
+<hr>
+<p>
+  <%= @station.description %>
+</p>
+
+<br/>
+
 
 <%= link_to 'Modifier', edit_station_path(@station), class: 'btn btn-primary' %>
 <%= link_to 'Retour', stations_path, class: 'btn btn-secondary' %>
