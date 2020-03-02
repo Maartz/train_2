@@ -1,0 +1,12 @@
+<p>
+  <strong>Numéro:</strong>
+  <%= @station.station_number %>
+</p>
+
+<p>
+  <strong>Nom:</strong>
+  <%= @station.station_name %>
+</p>
+
+<%= link_to 'Modifier', edit_station_path(@station), class: 'btn btn-primary' %>
+<%= link_to 'Retour', stations_path, class: 'btn btn-secondary' %>

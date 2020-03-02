@@ -1,0 +1,27 @@
+<h1>Gares</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col" >Numéro</th>
+      <th scope="col" >Nom</th>
+      <th scope="col"  colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stations.each do |station| %>
+      <tr>
+        <td><%= station.station_number %></td>
+        <td><%= station.station_name %></td>
+        <td><%= link_to 'Voir', station, class: 'btn btn-success' %></td>
+        <td><%= link_to 'Modifier', edit_station_path(station), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Supprimer', station, class: 'btn btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Créer une gare', new_station_path, class: 'btn btn-primary btn-lg' %>
