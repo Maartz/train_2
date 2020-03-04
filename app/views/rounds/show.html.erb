@@ -1,0 +1,21 @@
+
+
+<h3>
+  <strong>Tournée:</strong>
+</h3>
+
+<hr>
+
+<p><%= @round.round_name %></p>
+<br>
+<ul class="list-group">
+  <% @round.stations.each do |station| %>
+    <li class="list-group-item"> 
+      <h2><%= station.station_name %></h2>
+      <p><%= station.description %></p>
+    </li>
+  <% end %>
+</ul>
+<br />
+<%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
+<%= link_to 'Retour', rounds_path, class: 'btn btn-secondary' %>
