@@ -12,6 +12,7 @@
   <%= javascript_include_tag 'jquery'%>
   <%= javascript_include_tag 'popper'%>
   <%= javascript_include_tag 'bootstrap'%>
+  <%# <%= javascript_path '../../javascript/packs/jsclock.js'%>
 
 </head>
 
@@ -40,9 +41,35 @@
   </div>
   <% end %>
   <% end %>
+  <h1>
+    <div class="jumbotron jumbotron-fluid text-center container time">
+    </div>
+  </h1>
   <div class="container">
     <%= yield %>
   </div>
 </body>
 
 </html>
+
+<script>
+  $(document).ready(function () {
+    setInterval(function () {
+      var date = new Date();
+      options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour12: false,
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      };
+      formatted_date = new Intl.DateTimeFormat('fr-FR', options).format(date);
+      $('.time').html(
+        "<p> Le " + formatted_date
+      );
+    }, 500);
+  });
+</script>
