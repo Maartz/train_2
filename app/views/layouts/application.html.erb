@@ -12,7 +12,6 @@
   <%= javascript_include_tag 'jquery'%>
   <%= javascript_include_tag 'popper'%>
   <%= javascript_include_tag 'bootstrap'%>
-  <%# <%= javascript_path '../../javascript/packs/jsclock.js'%>
 
 </head>
 
@@ -20,29 +19,29 @@
   <%= render "layouts/navbar" %>
 
   <% flash.each do |type, message| %>
-  <% if type == "alert" %>
-  <div class="alert alert-danger" role="danger">
-    <h4 class="alert-heading">Attention !</h4>
-    <div class="d-flex text-center">
-      <p>
-        <%= message %>
-      </p>
+    <% if type == "alert" %>
+    <div class="alert alert-danger" role="danger">
+      <h4 class="alert-heading">Attention !</h4>
+      <div class="d-flex text-center">
+        <p>
+          <%= message %>
+        </p>
+      </div>
     </div>
-  </div>
-  <% end %>
-  <% if type == "notice" %>
-  <div class="alert alert-success" role="success">
-    <h4 class="alert-heading">Info:</h4>
-    <div class="d-flex text-center">
-      <p>
-        <%= message %>
-      </p>
+    <% end %>
+    <% if type == "notice" %>
+    <div class="alert alert-success" role="success">
+      <h4 class="alert-heading">Info:</h4>
+      <div class="d-flex text-center">
+        <p>
+          <%= message %>
+        </p>
+      </div>
     </div>
-  </div>
-  <% end %>
+    <% end %>
   <% end %>
   <h1>
-    <div class="jumbotron jumbotron-fluid text-center container time">
+    <div class="neumor p-5 text-center container time">
     </div>
   </h1>
   <div class="container">
