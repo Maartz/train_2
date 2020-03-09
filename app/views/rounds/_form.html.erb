@@ -16,12 +16,17 @@
     <h4><%= form.label :round_name, value: 'Nom' %></h4>
     <%= form.text_field :round_name, class: 'form-control', placeholder: 'Tournée 1' %>
   </div>
-<br/>
+  <br />
   <div class="field">
-  <h4>Stations</h4>
-  <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| [s.station_name, s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'form-control'})%>
+    <h4>Stations</h4>
+    <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| [s.station_name, s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'form-control'})%>
   </div>
-<br/>
+  <br />
+  <div class="field">
+    <h4>Horaires</h4>
+    <%= select_tag("schedule_ids[]", options_for_select(Schedule.all.collect { |s| [s.schedule.strftime("%H:%M"), s.id] }, @round.schedules.collect { |s| s.id}), {:multiple=>true, class: 'form-control'})%>
+  </div>
+  <br />
   <div class="actions">
     <%= form.submit 'Créer', class: 'btn btn-primary btn-lg'%>
   </div>
