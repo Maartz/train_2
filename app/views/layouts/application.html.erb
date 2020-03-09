@@ -15,9 +15,8 @@
 
 </head>
 
-<body>
+<body class="mb-5">
   <%= render "layouts/navbar" %>
-
   <% flash.each do |type, message| %>
     <% if type == "alert" %>
     <div class="alert alert-danger" role="danger">
@@ -40,6 +39,8 @@
     </div>
     <% end %>
   <% end %>
+  <div class="spacer"></div>
+  <br>
   <h1>
     <div class="neumor p-5 text-center container time">
     </div>

@@ -12,6 +12,7 @@
  *
  */
 @import "bootstrap";
+@import "tempusdominus-bootstrap-4.css";
 
 html, .body {
     background-color: #EDF2F7!important!important!important!important;
@@ -29,4 +30,8 @@ nav {
     box-shadow: 
     1rem 1rem 2rem rgba(0,0,0,.1),
     -1rem 1rem 2rem rgba(255,255,255,.5);
+}
+
+.spacer {
+    margin: 60px;
 }
