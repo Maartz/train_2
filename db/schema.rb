@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_123703) do
+ActiveRecord::Schema.define(version: 2020_03_10_073238) do
 
   create_table "rounds", force: :cascade do |t|
     t.string "round_name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_03_09_123703) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "description"
+    t.index ["station_number"], name: "uniq_station_name", unique: true
   end
 
 end
