@@ -1,7 +1,9 @@
-<%= form_with(model: schedule, local: true) do |form| %>
+<div class="card-body">
+
+<%= form_with(model: schedule, local: true, class: 'form-group') do |form| %>
   <% if schedule.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(schedule.errors.count, "error") %> prohibited this schedule from being saved:</h2>
+      <h2><%= pluralize(schedule.errors.count, "error") %> a empêchée cet horaire d'être sauvegardé:</h2>
 
       <ul>
         <% schedule.errors.full_messages.each do |message| %>
@@ -12,11 +14,19 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :schedule %>
-    <%= form.time_select :schedule %>
+    <h4>Horaire</h4>
+    <div class="input-group">
+      <%= form.time_select :schedule, { minute_step: 5 }, class: 'form-control' %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Créer', class: 'btn btn-primary btn-lg'%>
   </div>
 <% end %>
+
+
+
+
+
+</div>
