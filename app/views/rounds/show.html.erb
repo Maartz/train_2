@@ -1,21 +1,119 @@
-
-
 <h3>
-  <strong>Tournée:</strong>
+  <strong>Tournée:</strong> <%= @round.round_name %>
 </h3>
 
 <hr>
 
-<p><%= @round.round_name %></p>
+<div class="center d-flex justify-content-start">
+  <div class="flex-grow-1">
+    <button class="btn btn-lg btn-primary" id="start">
+      START
+    </button>
+    <button class="btn btn-lg btn-warning" id="pause">
+      PAUSE
+    </button>
+    <button class="btn btn-lg btn-danger" id="stop">
+      STOP
+    </button>
+    <div class="Timer"></div>
+  </div>
+  <button class="btn btn-lg btn-info" id="next">
+    SUIVANT
+  </button>
+</div>
+<hr>
+
 <br>
-<ul class="list-group">
-  <% @round.stations.each do |station| %>
-    <li class="list-group-item"> 
-      <h2><%= station.station_name %></h2>
-      <p><%= station.description %></p>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col">
+    <ul class="list-group list-group-flush">
+      <% @round.stations.each do |station| %>
+      <li class="list-group-item selector mb-4" id="<%= station.id %>">
+        <div class="d-flex justify-content-center align-items-baseline">
+          <h1 class="mr-4"><%= station.station_number %>:</h1>
+          <h3><%= station.station_name %></h3>
+        </div>
+        <% if station.description.empty? != true %>
+        <hr />
+        <h3><%= station.description %></h3>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
 <br />
 <%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
 <%= link_to 'Retour', rounds_path, class: 'btn btn-secondary' %>
+
+<script>
+  // TODO: Find issue with stop function which seems to keep in state the previous state of the accumulator
+  
+  $(document).ready(function () {
+
+    var stations = document.getElementsByClassName("list-group-item")
+    const stations_array = [...stations];
+    let time_object = {};
+    var acc;
+
+    $("#next").addClass("disabled");
+    $("#pause").addClass("disabled");
+    $("#stop").addClass("disabled");
+
+    $("#start").click(function () {
+      reset();
+      console.log(acc)
+      $("#start").addClass("disabled");
+      $("#next").removeClass("disabled");
+      $("#pause").removeClass("disabled");
+      $("#stop").removeClass("disabled");
+      if (acc < stations_array.length) {
+        $(stations[acc]).addClass("active");
+        Object.defineProperty(time_object, acc, {
+          value: new Date(),
+          writable: false
+        });
+        $("#next").click(function () {
+          incStation();
+          // acc += 1
+          if (acc == stations_array.length - 1) {
+            $("#next").html("TERMINER")
+            if ($("#next").text() == "TERMINER") {
+              $("#next").addClass("disabled");
+            }
+          }
+
+          $(stations[acc - 1]).addClass("list-group-item-success").removeClass("active");
+          Object.defineProperty(time_object, acc, {
+            value: new Date(),
+            writable: false
+          });
+          $(stations[acc]).addClass("active");
+        })
+      }
+
+    })
+
+    $("#stop").click(function () {
+      reset();
+      $("#next").addClass("disabled");
+      $("#pause").addClass("disabled");
+      $("#stop").addClass("disabled");
+      $("#start").removeClass("disabled");
+      $("#next").html("SUIVANT")
+      time_object = {}
+      $.each(stations_array, function (_, element) {
+        $(element).removeClass("list-group-item-success").removeClass("active");
+      })
+    })
+
+    var incStation = function () {
+      acc += 1;
+    }
+
+    var reset = function () {
+      acc = 0;
+    }
+  })
+</script>

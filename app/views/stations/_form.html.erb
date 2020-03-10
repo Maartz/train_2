@@ -3,35 +3,37 @@
 
   <% if station.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(station.errors.count, "error") %> a empêchée cette gare d'être sauvegardé :</h2>
-
-    <ul>
-      <% station.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-
-
-  <div class="row">
-    <div class="col">
-      <h4><%= form.label :station_number, value: 'Numéro' %></h4>
-      <%= form.text_field :station_number ,  class: 'form-control', placeholder: '31B' %>
+    <div class="alert alert-danger" role="danger">
+      <h4 class="alert-heading"><%= pluralize(station.errors.count, "error") %> a empêchée cette gare d'être sauvegardé
+        :</h4>
+      <div class="d-flex text-center">
+        <ul>
+          <% station.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
-    <div class="col">
-      <h4><%= form.label :station_name, value: 'Nom' %></h4>
-      <%= form.text_field :station_name, class: 'form-control', placeholder: 'Atelier Aval' %>
+    <% end %>
+
+    <div class="row">
+      <div class="col">
+        <h4><%= form.label :station_number, value: 'Numéro' %></h4>
+        <%= form.text_field :station_number ,  class: 'form-control', placeholder: '31B' %>
+      </div>
+      <div class="col">
+        <h4><%= form.label :station_name, value: 'Nom' %></h4>
+        <%= form.text_field :station_name, class: 'form-control', placeholder: 'Atelier Aval' %>
+      </div>
     </div>
-  </div>
-  <br>
-  <div>
+    <br>
+    <div>
       <h4><%= form.label :station_name, value: 'Description' %></h4>
       <%= form.text_area :description, class: 'form-control', rows: 10 , placeholder: 'Une chose importante à noter ? C\'est ici que cela ce passe...' %>
     </div>
-  <br />
-  <div class="actions">
-    <%= form.submit 'Créer', class: 'btn btn-primary btn-lg' %>
+    <br />
+    <div class="actions">
+      <%= form.submit 'Créer', class: 'btn btn-primary btn-lg' %>
+    </div>
+    <% end %>
   </div>
-  <% end %>
-</div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fluid navbar-expand-lg navbar-light" style="margin-bottom: 3rem;">
+<nav class="navbar navbar-fluid fixed-top navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#">Trixell</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +27,16 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <%= link_to "Liste des gares", stations_path, class: "dropdown-item" %>
                     <%= link_to "Créer une gare", new_station_path, class: "dropdown-item" %>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Horaires
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to "Liste des horaires", schedules_path, class: "dropdown-item" %>
+                    <%= link_to "Créer un horaire", new_schedule_path, class: "dropdown-item" %>
                 </div>
             </li>
             <li class="nav-item">
