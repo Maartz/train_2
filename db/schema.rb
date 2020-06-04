@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_094033) do
+ActiveRecord::Schema.define(version: 2020_06_04_122335) do
 
   create_table "rounds", force: :cascade do |t|
     t.string "round_name"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 2020_03_10_094033) do
   create_table "rounds_stations", force: :cascade do |t|
     t.integer "station_id"
     t.integer "round_id"
+  end
+
+  create_table "rounds_trackings", force: :cascade do |t|
+    t.integer "round_id", null: false
+    t.integer "user_id", null: false
+    t.integer "station_id", null: false
+    t.datetime "passed_station"
+    t.index ["round_id"], name: "index_rounds_trackings_on_round_id"
+    t.index ["station_id"], name: "index_rounds_trackings_on_station_id"
+    t.index ["user_id"], name: "index_rounds_trackings_on_user_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -44,16 +54,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_094033) do
     t.index ["station_number"], name: "uniq_station_name", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "tgi", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["tgi"], name: "index_users_on_tgi", unique: true
-  end
-
+  add_foreign_key "rounds_trackings", "rounds"
+  add_foreign_key "rounds_trackings", "stations"
+  add_foreign_key "rounds_trackings", "users"
 end

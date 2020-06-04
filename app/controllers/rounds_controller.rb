@@ -1,5 +1,6 @@
 class RoundsController < ApplicationController
   before_action :set_round, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /rounds
   # GET /rounds.json
@@ -21,12 +22,16 @@ class RoundsController < ApplicationController
   def edit
   end
 
+  def round_payload
+    puts params[:payload]
+  end
+
   # POST /rounds
   # POST /rounds.json
   def create
     @round = Round.new(round_params)
     @round.stations = Station.find(params[:station_ids]) if params[:station_ids]
-
+    # TODO: add schedules to create layer
     respond_to do |format|
       if @round.save
         format.html { redirect_to @round, notice: 'La tournée a été créé avec succès.' }
@@ -65,13 +70,13 @@ class RoundsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_round
-      @round = Round.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_round
+    @round = Round.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def round_params
-      params.require(:round).permit(:round_name)
-    end
+  # Only allow a list of trusted parameters through.
+  def round_params
+    params.require(:round).permit(:round_name, :round_payload)
+  end
 end

@@ -9,17 +9,16 @@
     <button class="btn btn-lg btn-primary" id="start">
       START
     </button>
-    <button class="btn btn-lg btn-warning" id="pause">
-      PAUSE
-    </button>
     <button class="btn btn-lg btn-danger" id="stop">
       STOP
     </button>
     <div class="Timer"></div>
   </div>
-  <button class="btn btn-lg btn-info" id="next">
-    SUIVANT
-  </button>
+  <div class="control">
+    <button class="btn btn-lg btn-info" id="next">
+      SUIVANT
+    </button>
+  </div>
 </div>
 <hr>
 
@@ -54,42 +53,63 @@
 
     var stations = document.getElementsByClassName("list-group-item")
     const stations_array = [...stations];
-    let time_object = {};
-    var acc;
+    let passed_stations_array = [];
+    var acc = 0;
 
     $("#next").addClass("disabled");
+    $("#next:disabled");
+
     $("#pause").addClass("disabled");
     $("#stop").addClass("disabled");
 
     $("#start").click(function () {
       reset();
       console.log(acc)
+      console.log("stations array index: ", stations_array[acc].id);
+      passed_stations_array.push({
+          id: stations_array[acc].id, 
+          timestamp: new Date().toISOString()
+          });
+
+      console.log(passed_stations_array);
       $("#start").addClass("disabled");
       $("#next").removeClass("disabled");
       $("#pause").removeClass("disabled");
       $("#stop").removeClass("disabled");
       if (acc < stations_array.length) {
         $(stations[acc]).addClass("active");
-        Object.defineProperty(time_object, acc, {
-          value: new Date(),
-          writable: false
-        });
+    
         $("#next").click(function () {
           incStation();
-          // acc += 1
+          console.log("accumulator: ", acc);
+          console.log("stations array index: ", stations_array[acc].id);
+          passed_stations_array.push({
+            id: stations_array[acc].id, 
+            timestamp: new Date().toISOString()
+          });
+          console.log(passed_stations_array);
           if (acc == stations_array.length - 1) {
-            $("#next").html("TERMINER")
-            if ($("#next").text() == "TERMINER") {
+            $("#next").html("FIN DE TOURNEE")
+            Object.freeze(passed_stations_array);
+            Object.freeze(acc);
+            
+            if ($("#next").text() == "FIN DE TOURNEE") {
               $("#next").addClass("disabled");
             }
           }
-
-          $(stations[acc - 1]).addClass("list-group-item-success").removeClass("active");
-          Object.defineProperty(time_object, acc, {
-            value: new Date(),
-            writable: false
-          });
           $(stations[acc]).addClass("active");
+
+          if ($("#next").text() == "FIN DE TOURNEE") {
+            $(".control").append("<button class=\"btn btn-lg btn-info\" id=\"end\">TERMINER</button>")
+            $.ajax({
+              url: "/rounds/<%= @round.id %>/save_round",
+              type: "post",
+              data: {
+                round_payload: JSON.stringify(passed_stations_array),
+                current_user: "<%= @current_user %>",
+              }
+            })
+          } 
         })
       }
 
@@ -97,15 +117,16 @@
 
     $("#stop").click(function () {
       reset();
-      $("#next").addClass("disabled");
-      $("#pause").addClass("disabled");
-      $("#stop").addClass("disabled");
-      $("#start").removeClass("disabled");
-      $("#next").html("SUIVANT")
-      time_object = {}
-      $.each(stations_array, function (_, element) {
-        $(element).removeClass("list-group-item-success").removeClass("active");
-      })
+      location.reload();
+      return false;
+      // $("#next").addClass("disabled");
+      // $("#pause").addClass("disabled");
+      // $("#stop").addClass("disabled");
+      // $("#start").removeClass("disabled");
+      // $("#next").html("SUIVANT");
+      // $.each(stations_array, function (_, element) {
+      //   $(element).removeClass("list-group-item-success").removeClass("active");
+      // })
     })
 
     var incStation = function () {
