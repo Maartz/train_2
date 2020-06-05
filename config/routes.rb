@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :schedules
   resources :rounds do
     post "/save_round", to: "rounds#round_payload"
