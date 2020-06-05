@@ -4,8 +4,8 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :tgi, "TGI" %><br />
-    <%= f.text_field :tgi, autofocus: true, autocomplete: "TGI", placeholder: "T0184152" %>
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
