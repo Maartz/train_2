@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_103708) do
+ActiveRecord::Schema.define(version: 2020_06_05_123303) do
+
+  create_table "round_trackings", force: :cascade do |t|
+    t.integer "round_id", null: false
+    t.integer "user_id", null: false
+    t.integer "station_id", null: false
+    t.datetime "passed_station"
+    t.index ["round_id"], name: "index_round_trackings_on_round_id"
+    t.index ["station_id"], name: "index_round_trackings_on_station_id"
+    t.index ["user_id"], name: "index_round_trackings_on_user_id"
+  end
 
   create_table "rounds", force: :cascade do |t|
     t.string "round_name"
@@ -26,16 +36,6 @@ ActiveRecord::Schema.define(version: 2020_06_05_103708) do
   create_table "rounds_stations", force: :cascade do |t|
     t.integer "station_id"
     t.integer "round_id"
-  end
-
-  create_table "rounds_trackings", force: :cascade do |t|
-    t.integer "round_id", null: false
-    t.integer "user_id", null: false
-    t.integer "station_id", null: false
-    t.datetime "passed_station"
-    t.index ["round_id"], name: "index_rounds_trackings_on_round_id"
-    t.index ["station_id"], name: "index_rounds_trackings_on_station_id"
-    t.index ["user_id"], name: "index_rounds_trackings_on_user_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -62,11 +62,13 @@ ActiveRecord::Schema.define(version: 2020_06_05_103708) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "tgi"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["tgi"], name: "index_users_on_tgi", unique: true
   end
 
-  add_foreign_key "rounds_trackings", "rounds"
-  add_foreign_key "rounds_trackings", "stations"
-  add_foreign_key "rounds_trackings", "users"
+  add_foreign_key "round_trackings", "rounds"
+  add_foreign_key "round_trackings", "stations"
+  add_foreign_key "round_trackings", "users"
 end

@@ -64,14 +64,10 @@
 
     $("#start").click(function () {
       reset();
-      console.log(acc)
-      console.log("stations array index: ", stations_array[acc].id);
       passed_stations_array.push({
           id: stations_array[acc].id, 
           timestamp: new Date().toISOString()
           });
-
-      console.log(passed_stations_array);
       $("#start").addClass("disabled");
       $("#next").removeClass("disabled");
       $("#pause").removeClass("disabled");
@@ -81,13 +77,10 @@
     
         $("#next").click(function () {
           incStation();
-          console.log("accumulator: ", acc);
-          console.log("stations array index: ", stations_array[acc].id);
           passed_stations_array.push({
             id: stations_array[acc].id, 
             timestamp: new Date().toISOString()
           });
-          console.log(passed_stations_array);
           if (acc == stations_array.length - 1) {
             $("#next").html("FIN DE TOURNEE")
             Object.freeze(passed_stations_array);
@@ -101,15 +94,19 @@
 
           if ($("#next").text() == "FIN DE TOURNEE") {
             $(".control").append("<button class=\"btn btn-lg btn-info\" id=\"end\">TERMINER</button>")
+          } 
+
+          $("#end").click(function () {
             $.ajax({
-              url: "/rounds/<%= @round.id %>/save_round",
+              url: "/rounds_trackings",
               type: "post",
               data: {
                 round_payload: JSON.stringify(passed_stations_array),
-                current_user: "<%= @current_user %>",
+                current_user: "<%= current_user.tgi %>",
+                round_executed: "<%= @round.id %>",
               }
             })
-          } 
+          })
         })
       }
 
@@ -119,14 +116,6 @@
       reset();
       location.reload();
       return false;
-      // $("#next").addClass("disabled");
-      // $("#pause").addClass("disabled");
-      // $("#stop").addClass("disabled");
-      // $("#start").removeClass("disabled");
-      // $("#next").html("SUIVANT");
-      // $.each(stations_array, function (_, element) {
-      //   $(element).removeClass("list-group-item-success").removeClass("active");
-      // })
     })
 
     var incStation = function () {
