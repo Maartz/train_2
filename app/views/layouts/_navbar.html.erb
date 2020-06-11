@@ -39,8 +39,14 @@
                     <%= link_to "Créer un horaire", new_schedule_path, class: "dropdown-item" %>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Administration</a>
+            <li class="nav-item dropdown">
+                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Administration
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link_to "Tournees effectuees", rounds_trackings_path, class: "dropdown-item" %>
+                </div>
             </li>
         </ul>
     </div>

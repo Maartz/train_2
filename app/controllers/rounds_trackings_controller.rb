@@ -2,17 +2,16 @@
 
 class RoundsTrackingsController < ApplicationController
   before_action :set_round_tracking, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[index create] 
   skip_before_action :verify_authenticity_token
 
   def index
-    @round_trackings = RoundTracking.all
+    @round_trackings = RoundTracking.order(passed_station: :desc).page(params[:page]).per(10)
   end
 
   # POST /rounds_trackings
   # POST /rounds_trackings.json
   def create
-    # @round_track = RoundTracking.new(round_params)
-
     hash = round_params
     hash = JSON.parse(hash) if hash.is_a?(String)
     @round_track = hash
@@ -47,6 +46,6 @@ class RoundsTrackingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def round_params
-    params.permit(:round_payload, :current_user, :round_executed)
+    params.permit(:round_payload, :current_user, :round_executed, :page)
   end
 end

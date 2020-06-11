@@ -42,7 +42,11 @@
   <div class="spacer"></div>
   <br>
   <h1>
-    <div class="p-5 text-center container"> <%= current_user.tgi %></div>
+    <% if current_user %>
+    <div class="p-5 text-center container"> 
+      <p><%= current_user.tgi %></p>
+    </div>
+    <% end %>
     <div class="neumor p-5 text-center container time"></div>
   </h1>
   <div class="container">
