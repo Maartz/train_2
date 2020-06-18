@@ -31,7 +31,7 @@ class RoundsController < ApplicationController
   def create
     @round = Round.new(round_params)
     @round.stations = Station.find(params[:station_ids]) if params[:station_ids]
-    # TODO: add schedules to create layer
+    @round.schedules = Schedule.find(params[:schedule_ids]) if params[:schedule_ids]
     respond_to do |format|
       if @round.save
         format.html { redirect_to @round, notice: 'La tournée a été créé avec succès.' }
@@ -47,7 +47,7 @@ class RoundsController < ApplicationController
   # PATCH/PUT /rounds/1.json
   def update
     @round.stations = Station.find(params[:station_ids]) if params[:station_ids]
-    puts @round.stations
+    @round.schedules = Schedule.find(params[:schedule_ids]) if params[:schedule_ids]
     respond_to do |format|
       if @round.update(round_params)
         format.html { redirect_to @round, notice: 'La tournée a été mise à jour avec succès.' }

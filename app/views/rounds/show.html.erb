@@ -9,9 +9,6 @@
     <button class="btn btn-lg btn-primary" id="start">
       START
     </button>
-    <button class="btn btn-lg btn-danger" id="stop">
-      STOP
-    </button>
     <div class="Timer"></div>
   </div>
   <div class="control">
@@ -41,7 +38,9 @@
     </ul>
   </div>
 </div>
-
+<button class="btn btn-lg btn-block btn-danger mb-5" id="stop">
+      STOP
+</button>
 <br />
 <%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
 <%= link_to 'Retour', rounds_path, class: 'btn btn-secondary' %>
@@ -60,7 +59,9 @@
     $("#next:disabled");
 
     $("#pause").addClass("disabled");
+    $("#pause:disabled");
     $("#stop").addClass("disabled");
+    $("#stop:disabled");
 
     $("#start").click(function () {
       reset();
