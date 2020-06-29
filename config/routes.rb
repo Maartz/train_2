@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  devise_scope :user do
+    authenticated do
+      root to: 'rounds#index'
+    end
+
+    unauthenticated do
+      root to: 'devise/sessions#new', as: 'unauthenticated_path'
+    end
+  end
+ 
   resources :schedules
   resources :rounds
-  root to: "home#index"
-  get 'home/index'
   resources :stations
-
+  resources :rounds_trackings
 end

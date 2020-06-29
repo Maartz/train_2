@@ -9,17 +9,13 @@
     <button class="btn btn-lg btn-primary" id="start">
       START
     </button>
-    <button class="btn btn-lg btn-warning" id="pause">
-      PAUSE
-    </button>
-    <button class="btn btn-lg btn-danger" id="stop">
-      STOP
-    </button>
     <div class="Timer"></div>
   </div>
-  <button class="btn btn-lg btn-info" id="next">
-    SUIVANT
-  </button>
+  <div class="control">
+    <button class="btn btn-lg btn-info" id="next">
+      SUIVANT
+    </button>
+  </div>
 </div>
 <hr>
 
@@ -42,7 +38,9 @@
     </ul>
   </div>
 </div>
-
+<button class="btn btn-lg btn-block btn-danger mb-5" id="stop">
+      STOP
+</button>
 <br />
 <%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
 <%= link_to 'Retour', rounds_path, class: 'btn btn-secondary' %>
@@ -54,42 +52,56 @@
 
     var stations = document.getElementsByClassName("list-group-item")
     const stations_array = [...stations];
-    let time_object = {};
-    var acc;
+    let passed_stations_array = [];
+    var acc = 0;
 
-    $("#next").addClass("disabled");
-    $("#pause").addClass("disabled");
-    $("#stop").addClass("disabled");
+    $("#next").prop('disabled', true);
+    $("#stop").prop("disabled", true);
 
     $("#start").click(function () {
       reset();
-      console.log(acc)
-      $("#start").addClass("disabled");
-      $("#next").removeClass("disabled");
-      $("#pause").removeClass("disabled");
-      $("#stop").removeClass("disabled");
+      passed_stations_array.push({
+          id: stations_array[acc].id, 
+          timestamp: new Date().toISOString()
+          });
+      $("#start").prop("disabled", true);
+      $("#next").prop("disabled", false)
+      $("#stop").prop("disabled", false);
       if (acc < stations_array.length) {
         $(stations[acc]).addClass("active");
-        Object.defineProperty(time_object, acc, {
-          value: new Date(),
-          writable: false
-        });
+    
         $("#next").click(function () {
           incStation();
-          // acc += 1
+          passed_stations_array.push({
+            id: stations_array[acc].id, 
+            timestamp: new Date().toISOString()
+          });
           if (acc == stations_array.length - 1) {
-            $("#next").html("TERMINER")
-            if ($("#next").text() == "TERMINER") {
-              $("#next").addClass("disabled");
+            $("#next").html("FIN DE TOURNEE")
+            Object.freeze(passed_stations_array);
+            Object.freeze(acc);
+            
+            if ($("#next").text() == "FIN DE TOURNEE") {
+              $("#next").prop("disabled", true);
             }
           }
-
-          $(stations[acc - 1]).addClass("list-group-item-success").removeClass("active");
-          Object.defineProperty(time_object, acc, {
-            value: new Date(),
-            writable: false
-          });
           $(stations[acc]).addClass("active");
+
+          if ($("#next").text() == "FIN DE TOURNEE") {
+            $(".control").append("<button class=\"btn btn-lg btn-info\" id=\"end\">TERMINER</button>")
+          } 
+
+          $("#end").click(function () {
+            $.ajax({
+              url: "/rounds_trackings",
+              type: "post",
+              data: {
+                round_payload: JSON.stringify(passed_stations_array),
+                current_user: "<%= current_user.tgi %>",
+                round_executed: "<%= @round.id %>",
+              }
+            })
+          })
         })
       }
 
@@ -97,15 +109,8 @@
 
     $("#stop").click(function () {
       reset();
-      $("#next").addClass("disabled");
-      $("#pause").addClass("disabled");
-      $("#stop").addClass("disabled");
-      $("#start").removeClass("disabled");
-      $("#next").html("SUIVANT")
-      time_object = {}
-      $.each(stations_array, function (_, element) {
-        $(element).removeClass("list-group-item-success").removeClass("active");
-      })
+      location.reload();
+      return false;
     })
 
     var incStation = function () {

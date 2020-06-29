@@ -1,0 +1,29 @@
+<h1>Tournees effectuees:</h1>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Tournee</th>
+      <th scope="col">Operateur</th>
+      <th scope="col">Gare</th>
+      <th scope="col">Horodatage</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @round_trackings.each do |round| %>
+    <tr>
+        <td> <%= Round.find(round.round_id).round_name %></td>
+        <td> <%= User.find(round.user_id).tgi %></td>
+        <td> <%= Station.find(round.station_id).station_name %></td>
+        <td>Le <%= round.passed_station.strftime('%d/%m/%Y') %> a <%= round.passed_station.strftime('%T') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @round_trackings, window: 2 %>
+
+
+
+

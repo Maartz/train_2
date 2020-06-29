@@ -1,14 +1,12 @@
 <nav class="navbar navbar-fluid fixed-top navbar-expand-lg navbar-light">
-    <a class="navbar-brand" href="#">Trixell</a>
+    <a class="navbar-brand" href="<%= root_path %>">Trixell</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Acceuil<span class="sr-only">(current)</span></a>
-            </li>
+        <% if user_signed_in? %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -16,32 +14,53 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <%= link_to "Liste des tournées", rounds_path, class: "dropdown-item" %>
-                    <%= link_to "Créer une tournée", new_round_path, class: "dropdown-item" %>
+                    <% if can? :create, Round %>
+                        <%= link_to "Créer une tournée", new_round_path, class: "dropdown-item" %>
+                    <% end %>
                 </div>
             </li>
+            <% if can? :crud, Station %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Gares
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Liste des gares", stations_path, class: "dropdown-item" %>
+                        <%= link_to "Créer une gare", new_station_path, class: "dropdown-item" %>
+                    </div>
+                </li>
+            <% end %>
+            <% if can? :crud, Schedule %>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Horaires
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Liste des horaires", schedules_path, class: "dropdown-item" %>
+                        <%= link_to "Créer un horaire", new_schedule_path, class: "dropdown-item" %>
+                    </div>
+                </li>
+            <% end %>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    Gares
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <%= link_to "Liste des gares", stations_path, class: "dropdown-item" %>
-                    <%= link_to "Créer une gare", new_station_path, class: "dropdown-item" %>
-                </div>
+                    Administration
+                 </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <% if can? :read, RoundTracking %>
+                        <%= link_to "Tournees effectuees", rounds_trackings_path, class: "dropdown-item" %>
+                    <% end %>
+                    <div class="dropdown-divider"></div>
+                    <%= link_to "Se deconnecter", destroy_user_session_path, class: "text-white bg-danger dropdown-item", method: :delete %>
+                    </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Horaires
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <%= link_to "Liste des horaires", schedules_path, class: "dropdown-item" %>
-                    <%= link_to "Créer un horaire", new_schedule_path, class: "dropdown-item" %>
-                </div>
-            </li>
+        <% else %>
             <li class="nav-item">
-                <a class="nav-link" href="#">Administration</a>
+                <a class="nav-link" href="<%= new_user_session_path %>">Se connecter</a>
             </li>
+        <% end %>
         </ul>
     </div>
 </nav>
