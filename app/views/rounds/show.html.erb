@@ -55,13 +55,8 @@
     let passed_stations_array = [];
     var acc = 0;
 
-    $("#next").addClass("disabled");
-    $("#next:disabled");
-
-    $("#pause").addClass("disabled");
-    $("#pause:disabled");
-    $("#stop").addClass("disabled");
-    $("#stop:disabled");
+    $("#next").prop('disabled', true);
+    $("#stop").prop("disabled", true);
 
     $("#start").click(function () {
       reset();
@@ -69,10 +64,9 @@
           id: stations_array[acc].id, 
           timestamp: new Date().toISOString()
           });
-      $("#start").addClass("disabled");
-      $("#next").removeClass("disabled");
-      $("#pause").removeClass("disabled");
-      $("#stop").removeClass("disabled");
+      $("#start").prop("disabled", true);
+      $("#next").prop("disabled", false)
+      $("#stop").prop("disabled", false);
       if (acc < stations_array.length) {
         $(stations[acc]).addClass("active");
     
@@ -88,7 +82,7 @@
             Object.freeze(acc);
             
             if ($("#next").text() == "FIN DE TOURNEE") {
-              $("#next").addClass("disabled");
+              $("#next").prop("disabled", true);
             }
           }
           $(stations[acc]).addClass("active");

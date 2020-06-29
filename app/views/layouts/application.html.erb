@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="mb-5">
+<body class="mt-5">
   <%= render "layouts/navbar" %>
   <% flash.each do |type, message| %>
     <% if type == "alert" %>
@@ -42,12 +42,7 @@
   <div class="spacer"></div>
   <br>
   <h1>
-    <% if current_user %>
-    <div class="p-5 text-center container"> 
-      <p><%= current_user.tgi %></p>
-    </div>
-    <% end %>
-    <div class="neumor p-5 text-center container time"></div>
+   <div class="neumor p-5 text-center container time"></div>
   </h1>
   <div class="container">
     <%= yield %>

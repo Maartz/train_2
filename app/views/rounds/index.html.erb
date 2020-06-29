@@ -21,13 +21,22 @@
           </ul>
         </td>
         <td><%= link_to 'Voir', round, class: 'btn btn-success' %></td>
-        <td><%= link_to 'Modifier', edit_round_path(round), class: 'btn btn-primary' %></td>
-        <td><%= link_to 'Supprimer', round, class: 'btn btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' } %></td>
+        <% if can? :edit, Round %>
+          <td>
+            <%= link_to 'Modifier', edit_round_path(round), class: 'btn btn-primary' %>
+          </td>
+        <% end %>
+        <% if can? :destroy, Round %>
+          <td>
+            <%= link_to 'Supprimer', round, class: 'btn btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' } %>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Créer une tournée', new_round_path, class: 'btn btn-primary btn-lg' %>
+<% if can? :create, Round  %>
+  <%= link_to 'Créer une tournée', new_round_path, class: 'btn btn-primary btn-lg' %>
+<% end %>
