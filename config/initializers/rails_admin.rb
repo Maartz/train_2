@@ -1,5 +1,8 @@
 RailsAdmin.config do |config|
 
+
+  config.main_app_name = ["Petit Train", "BackOffice"]
+
   ### Popular gems integration
 
   ## == Devise ==
@@ -37,5 +40,41 @@ RailsAdmin.config do |config|
     ## With an audit adapter, you can add:
     # history_index
     # history_show
+  end
+
+
+  # Config for Stations layout
+
+  config.model 'Station' do
+  
+    list do
+        field :station_number do
+          formatted_value do
+            value.to_s.upcase
+          end
+
+          pretty_value do
+            value.to_s.upcase
+          end
+
+          export_value do
+            value.to_s.upcase
+          end
+        end
+      
+      field :station_name do
+        formatted_value do
+          value.titleize
+        end
+
+        pretty_value do
+          value.titleize
+        end
+
+        export_value do
+          value.titleize
+        end
+      end
+    end
   end
 end

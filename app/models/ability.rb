@@ -10,6 +10,7 @@ class Ability
       can :manage, :all
     elsif user.logistic?
       can :manage, :all
+      can :access, :rails_admin
     else
       can :read, :all
     end
