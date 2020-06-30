@@ -1,23 +1,19 @@
-<h3><strong>Numéro:</strong></h3>
-<hr>
-<p>
-  <%= @station.station_number %>
-</p>
-<br/>
-<h3><strong>Nom:</strong></h3>
-<hr>
-<p>
-  <%= @station.station_name %>
-</p>
-<br/>
-<h3><strong>Description:</strong></h3>
-<hr>
-<p>
-  <%= @station.description %>
-</p>
-
-<br/>
-
-
-<%= link_to 'Modifier', edit_station_path(@station), class: 'btn btn-primary' %>
-<%= link_to 'Retour', stations_path, class: 'btn btn-secondary' %>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      Gare : <h1><%= @station.station_name %> </h1>
+    </div>
+    <div class="col">
+      Numero de la gare: <h1><%= @station.station_number %></h1>
+    </div>
+    <div class="w-100"></div>
+    <div class="col">
+      Description : <p>
+        <%= @station.description %>
+      </p>
+    </div>
+    <div class="col">
+      <%= image_tag @station.picture, class: "img-fluid", size: "400x400" %>
+    </div>
+  </div>
+</div>

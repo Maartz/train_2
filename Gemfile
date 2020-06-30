@@ -31,6 +31,8 @@ gem 'jquery-rails'
 gem 'bootstrap4-datetime-picker-rails'
 gem 'kaminari'
 gem 'cancancan'
+gem 'papertrail'
+gem 'rails_admin', '~> 2.0', '>= 2.0.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

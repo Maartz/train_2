@@ -3,6 +3,7 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
+      <th scope="col" >Apercu</th>
       <th scope="col" >Numéro</th>
       <th scope="col" >Nom</th>
       <th scope="col"  colspan="3"></th>
@@ -12,6 +13,9 @@
   <tbody>
     <% @stations.each do |station| %>
       <tr>
+        <td>
+          <%= image_tag station.picture, class: "img-thumbnail", width: "200" %>
+        </td>
         <td><%= station.station_number %></td>
         <td><%= station.station_name %></td>
         <td><%= link_to 'Voir', station, class: 'btn btn-success' %></td>
@@ -24,4 +28,6 @@
 
 <br>
 
-<%= link_to 'Créer une gare', new_station_path, class: 'btn btn-primary btn-lg' %>
+<% if can? :crud, Station %>
+  <%= link_to 'Créer une gare', new_station_path, class: 'btn btn-primary btn-lg' %>
+<% end %>

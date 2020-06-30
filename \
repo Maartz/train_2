@@ -42,10 +42,6 @@ nav {
 
     & li {
         font-size: 25px;
-
-        .dropdown-item {
-            padding: 20px;
-        }
     }
 
     & a {
@@ -54,6 +50,10 @@ nav {
 
         &:hover {
             background-color: transparent;
+        }
+
+        & div a {
+            padding: 15px;
         }
         
     }
