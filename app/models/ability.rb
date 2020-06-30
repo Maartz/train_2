@@ -8,10 +8,13 @@ class Ability
     user ||= User.new
     if user.admin?
       can :manage, :all
+    elsif user.logistic?
+      can :manage, :all
+      can :access, :rails_admin
     else
-      can :manage, :all, user.operator?
       can :read, :all
     end
+
 
     # Define abilities for the passed in user here. For example:
     #

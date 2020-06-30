@@ -28,8 +28,13 @@
     </div>
     <br>
     <div>
-      <h4><%= form.label :station_name, value: 'Description' %></h4>
-      <%= form.text_area :description, class: 'form-control', rows: 10 , placeholder: 'Une chose importante à noter ? C\'est ici que cela ce passe...' %>
+      <h4><%= form.label :description, value: 'Description' %></h4>
+      <%= form.rich_text_area :description, class: 'form-control', rows: 10 , placeholder: 'Une chose importante à noter ? C\'est ici que cela ce passe...' %>
+    </div>
+    <br />
+    <div class="col">
+      <h4><%= form.label :picture, value: 'Photo de la gare' %></h4>
+      <%= form.file_field :picture%>
     </div>
     <br />
     <div class="actions">

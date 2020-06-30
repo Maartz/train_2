@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fluid fixed-top navbar-expand-lg navbar-light">
+<nav class="navbar navbar-fluid fixed-top navbar-expand-lg navbar">
     <a class="navbar-brand" href="<%= root_path %>">Trixell</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,11 @@
                     aria-haspopup="true" aria-expanded="false">
                     Administration
                  </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+<% if current_user.admin? || current_user.logistic? %>
+                        <%= link_to "Administration", rails_admin_path, class: "dropdown-item" %> 
+                     <% end %>
+
                     <% if can? :read, RoundTracking %>
                         <%= link_to "Tournees effectuees", rounds_trackings_path, class: "dropdown-item" %>
                     <% end %>
