@@ -12,23 +12,27 @@
   <tbody>
     <% @rounds.each do |round| %>
       <tr>
-        <td><%= round.round_name %></td>
+	      <td>
+		      <h3><%= round.round_name %></h3>
+	      </td>
         <td>
           <ul>
             <% round.schedules.each do |schedule| %>
-              <li><%= schedule.schedule.strftime("%H:%M") %></li>
+		    <li>
+			    <h3><%= schedule.schedule.strftime("%H:%M") %></h3>
+	    </li>
             <% end %>
           </ul>
         </td>
-        <td><%= link_to 'Voir', round, class: 'btn btn-success' %></td>
+        <td><%= link_to 'Voir', round, class: 'btn btn-lg btn-success' %></td>
         <% if can? :edit, Round %>
           <td>
-            <%= link_to 'Modifier', edit_round_path(round), class: 'btn btn-primary' %>
+            <%= link_to 'Modifier', edit_round_path(round), class: 'btn btn-lg btn-primary' %>
           </td>
         <% end %>
         <% if can? :destroy, Round %>
           <td>
-            <%= link_to 'Supprimer', round, class: 'btn btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' } %>
+            <%= link_to 'Supprimer', round, class: 'btn btn-lg btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' } %>
           </td>
         <% end %>
       </tr>
@@ -38,5 +42,5 @@
 
 <br>
 <% if can? :create, Round  %>
-  <%= link_to 'Créer une tournée', new_round_path, class: 'btn btn-primary btn-lg' %>
+  <%= link_to 'Créer une tournée', new_round_path, class: 'btn btn-lg btn-primary btn-lg' %>
 <% end %>

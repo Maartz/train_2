@@ -25,10 +25,17 @@
     <ul class="list-group list-group-flush">
       <% @round.stations.each do |station| %>
       <li class="list-group-item selector mb-4" id="<%= station.id %>">
-        <div class="d-flex justify-content-center align-items-baseline">
-          <h1 class="mr-4"><%= station.station_number %>:</h1>
-          <h3><%= station.station_name %></h3>
-        </div>
+	      <div class="row">
+      		<div class="col">
+			<div class="d-flex justify-content-center align-items-baseline">
+				<h1 class="mr-4"><%= station.station_number %>:</h1>
+				<h3><%= station.station_name %></h3>
+			</div>
+		</div>
+		<div class="col">
+			<%= image_tag station.picture, class: "img-fluid"  %>
+		</div>
+      </div>
         <% if station.description.empty? != true %>
         <hr />
         <h3><%= station.description %></h3>
@@ -42,11 +49,12 @@
       STOP
 </button>
 <br />
-<%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
+<% if can? :edit, :Round %>
+	<%= link_to 'Modifier', edit_round_path(@round), class: 'btn btn-primary'%>
+<% end %>
 <%= link_to 'Retour', rounds_path, class: 'btn btn-secondary' %>
 
 <script>
-  // TODO: Find issue with stop function which seems to keep in state the previous state of the accumulator
   
   $(document).ready(function () {
 
