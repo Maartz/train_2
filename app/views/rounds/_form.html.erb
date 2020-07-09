@@ -1,34 +1,71 @@
 <div class="card-body">
-  <%= form_with(model: round, local: true, class: 'form-group') do |form| %>
-  <% if round.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(round.errors.count, "error") %> a empêchée cette tournée d'être sauvegardé:</h2>
+    <%= form_with(model: round, local: true, class: 'form-group') do |form| %>
+    <% if round.errors.any? %>
+    <div id="error_explanation">
+        <h2><%= pluralize(round.errors.count, "error") %> a empêchée cette tournée d'être sauvegardé:</h2>
 
-    <ul>
-      <% round.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
+        <ul>
+            <% round.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+    <% end %>
 
-  <div class="field">
-    <h4><%= form.label :round_name, value: 'Nom' %></h4>
-    <%= form.text_field :round_name, class: 'form-control', placeholder: 'Tournée 1' %>
-  </div>
-  <br />
-  <div class="field">
-    <h4>Stations</h4>
-    <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| [s.station_name, s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg'})%>
-  </div>
-  <br />
-  <div class="field">
-    <h4>Horaires</h4>
-    <%= select_tag("schedule_ids[]", options_for_select(Schedule.all.collect { |s| [s.schedule.strftime("%H:%M"), s.id] }, @round.schedules.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg'})%>
-  </div>
-  <br />
-  <div class="actions">
-    <%= form.submit 'Créer', class: 'btn btn-primary btn-lg'%>
-  </div>
-  <% end %>
+    <div class="field">
+        <h4><%= form.label :round_name, value: 'Nom' %></h4>
+        <%= form.text_field :round_name, class: 'form-control', placeholder: 'Tournée 1' %>
+    </div>
+    <br />
+    <div class="field">
+        <h4>Stations</h4>
+        <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| [s.station_name, s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg'})%>
+    </div>
+    <br />
+    <div class="field">
+        <h4>Horaires</h4>
+        <%= select_tag("schedule_ids[]", options_for_select(Schedule.all.collect { |s| [s.schedule.strftime("%H:%M"), s.id] }, @round.schedules.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg'})%>
+    </div>
+    <br />
+    <div class="actions">
+        <%= form.submit 'Créer', class: 'btn btn-primary btn-lg'%>
+    </div>
+    <% end %>
 </div>
+
+<script>
+    $(document).ready(function() {
+
+        var stations = [];
+
+        $("#station_ids_").select2({
+            placeholder: "Ajoutez les gares de la tournee",
+            theme: "bootstrap",
+            allowClear: true,
+            closeOnSelect: false,
+            multiple: true,
+        });
+
+        $(".select2-selection__choice__remove").on("click", e => {
+            console.log(e.target.parentNode.title);
+        })
+
+
+        $('#station_ids_').on("select2:select", function(evt) {
+            var element = evt.params.data.element;
+            var $element = $(element);
+            console.log(element);
+            stations = [...stations, element.value];
+
+            stations = stations.filter((value, index, self) => self.indexOf(value) === index);
+
+            console.log(stations);
+            $element.detach();
+            $(this).append($element);
+            $(this).trigger("change");
+        });
+
+        
+
+    });
+</script>

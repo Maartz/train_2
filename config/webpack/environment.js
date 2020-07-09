@@ -6,11 +6,18 @@ environment.plugins.append(
   "Provide",
   new webpack.ProvidePlugin({
     $: "jquery",
-
     jQuery: "jquery",
-
+    "window.jQuery": "jquery",
     Popper: ["popper.js", "default"],
+    select2: "select2",
   })
 );
 
+// environment.loaders.append("jquery", {
+//   test: require.resolve("jquery"),
+//   use: [
+//     { loader: "expose-loader", options: "$" },
+//     { loader: "expose-loader", options: "jQuery" },
+//   ],
+// });
 module.exports = environment;

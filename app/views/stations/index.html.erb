@@ -14,7 +14,7 @@
     <% @stations.each do |station| %>
       <tr>
         <td>
-          <%= image_tag station.picture, class: "img-thumbnail", width: "200" %>
+          <%= image_tag station.picture, class: "img-thumbnail", width: "200" if station.picture.present? %>
         </td>
         <td><%= station.station_number %></td>
         <td><%= station.station_name %></td>

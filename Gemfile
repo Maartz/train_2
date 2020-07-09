@@ -35,6 +35,10 @@ gem 'papertrail'
 gem 'rails_admin', '~> 2.0', '>= 2.0.2'
 gem 'rails_admin_softwarebrothers_theme', :git => 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 
+
+gem "select2-rails"
+
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 

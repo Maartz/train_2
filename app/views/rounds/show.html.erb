@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div class="col">
-			<%= image_tag station.picture, class: "img-fluid"  %>
+			<%= image_tag station.picture, class: "img-fluid" if station.picture.present? %>
 		</div>
       </div>
         <% if station.description.empty? != true %>
