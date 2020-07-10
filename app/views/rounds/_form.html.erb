@@ -36,6 +36,20 @@
 <script>
     $(document).ready(function() {
 
+        const sortFunction = (elements) => {
+            console.log(elements);
+            return elements.sort((a,b) => {
+                // version one line return (a.id < b.id) ? -1 : ((a.id > b.id) ? 1 : 0))
+                if (a.id < b.id) {
+                    return -1;
+                }
+                if (a.id > b.id) {
+                    return 1;
+                }
+                return 0;
+            });
+        };
+
         var stations = [];
 
         $("#station_ids_").select2({
@@ -44,11 +58,13 @@
             allowClear: true,
             closeOnSelect: false,
             multiple: true,
+            sorter: sortFunction
         });
 
-        $(".select2-selection__choice__remove").on("click", e => {
-            console.log(e.target.parentNode.title);
-        })
+        $("#station_ids_").on("select2:unselect", e => {
+            const unselectedStationId = e.params.data.id;
+            stations.splice(stations.indexOf(unselectedStationId), 1);
+        });
 
 
         $('#station_ids_').on("select2:select", function(evt) {
