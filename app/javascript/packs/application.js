@@ -12,6 +12,7 @@ require("channels");
 //= require popper
 //= require bootstrap-sprockets
 //= require jsclock
+//= require select2
 
 //= require moment
 // If you require timezone data (see moment-timezone-rails for additional file options)
@@ -28,4 +29,4 @@ require("channels");
 
 require("trix");
 require("@rails/actiontext");
-
+require("select2");

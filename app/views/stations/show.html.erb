@@ -14,7 +14,7 @@
 	</h3>
     </div>
     <div class="col">
-      <%= image_tag @station.picture, class: "img-fluid", size: "400x400" %>
+      <%= image_tag @station.picture, class: "img-fluid", size: "400x400" if @station.picture.present? %>
     </div>
   </div>
 </div>

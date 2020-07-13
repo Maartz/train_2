@@ -3,3 +3,4 @@
 //= link jquery.js
 //= link popper.js
 //= link bootstrap.js
+//= link select2.js
