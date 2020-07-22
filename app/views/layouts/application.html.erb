@@ -13,11 +13,13 @@
   <%= javascript_include_tag 'popper'%>
   <%= javascript_include_tag 'bootstrap'%>
   <%= javascript_include_tag 'select2'%>
+  <%= javascript_include_tag 'html5sortable'%>
+  
 
 
 </head>
 
-<body class="mt-5">
+<body>
   <%= render "layouts/navbar" %>
   <% flash.each do |type, message| %>
     <% if type == "alert" %>

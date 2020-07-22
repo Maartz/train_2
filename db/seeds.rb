@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.create!(tgi: 'T0184152', email: 'william.martin@trixell-thalesgroup.com', admin: true, password: 'Trixell01*', created_at: DateTime.now, updated_at: DateTime.now )
+
+User.create!(tgi: 'T0147566', email: 'julien.biondi@trixell-thalesgroup.com', admin: true, password: 'Trixell01*', created_at: DateTime.now, updated_at: DateTime.now)

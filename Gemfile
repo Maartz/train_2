@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.7'
+ruby '2.6.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
@@ -35,9 +35,10 @@ gem 'papertrail'
 gem 'rails_admin', '~> 2.0', '>= 2.0.2'
 gem 'rails_admin_softwarebrothers_theme', :git => 'git@github.com:softwarebrothers/rails_admin_softwarebrothers_theme.git'
 
-
+gem 'mini_magick'
+gem 'image_processing', '~> 1.2'
 gem "select2-rails"
-
+gem 'poppler', '~> 3.4', '>= 3.4.3'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

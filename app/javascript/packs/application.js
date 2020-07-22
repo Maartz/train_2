@@ -30,3 +30,4 @@ require("channels");
 require("trix");
 require("@rails/actiontext");
 require("select2");
+require("html5sortable");

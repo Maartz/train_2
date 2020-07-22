@@ -4,3 +4,4 @@
 //= link popper.js
 //= link bootstrap.js
 //= link select2.js
+//= link html5sortable/dist/html5sortable.js

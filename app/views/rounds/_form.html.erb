@@ -19,7 +19,7 @@
     <br />
     <div class="field">
         <h4>Stations</h4>
-        <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| [s.station_name, s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg'})%>
+        <%= select_tag("station_ids[]", options_for_select(Station.all.collect { |s| ["#{s.station_number} #{s.station_name}", s.id] }, @round.stations.collect { |s| s.id}), {:multiple=>true, class: 'custom-select custom-select-lg sortable'})%>
     </div>
     <br />
     <div class="field">
@@ -36,21 +36,24 @@
 <script>
     $(document).ready(function() {
 
-        const sortFunction = (elements) => {
-            console.log(elements);
-            return elements.sort((a,b) => {
-                // version one line return (a.id < b.id) ? -1 : ((a.id > b.id) ? 1 : 0))
-                if (a.id < b.id) {
-                    return -1;
-                }
-                if (a.id > b.id) {
-                    return 1;
-                }
-                return 0;
-            });
-        };
+        const sortFunction = (elements) => elements.sort((a, b) => (a.id < b.id) ? -1 : ((a.id > b.id) ? 1 : 0))
 
         var stations = [];
+        let unselectedStationId;
+
+        let data = [ <% @round.stations.each do |station| %>
+
+                {
+                    id: <%= station.id %> ,
+                    name: "<%= station.station_name %>"
+                },
+
+                <% end %>
+        ]
+
+        console.log(data);
+
+        sortable('.sortable')
 
         $("#station_ids_").select2({
             placeholder: "Ajoutez les gares de la tournee",
@@ -58,30 +61,36 @@
             allowClear: true,
             closeOnSelect: false,
             multiple: true,
-            sorter: sortFunction
+            // sorter: sortFunction,
+            data: data
         });
 
         $("#station_ids_").on("select2:unselect", e => {
-            const unselectedStationId = e.params.data.id;
+            unselectedStationId = e.params.data.id;
             stations.splice(stations.indexOf(unselectedStationId), 1);
         });
 
-
-        $('#station_ids_').on("select2:select", function(evt) {
-            var element = evt.params.data.element;
-            var $element = $(element);
-            console.log(element);
-            stations = [...stations, element.value];
-
-            stations = stations.filter((value, index, self) => self.indexOf(value) === index);
-
-            console.log(stations);
-            $element.detach();
-            $(this).append($element);
-            $(this).trigger("change");
+        $('#station_ids_').on("select2:clear", e => {
+            stations = [];
         });
 
-        
 
+        // $('#station_ids_').on("select2:select", function(evt) {
+        //     var element = evt.params.data.element;
+        //     var $element = $(element);
+        //     stations = [...stations, element.value];
+        //     $element.detach();
+        //     $(this).append($element);
+        //     $(this).trigger("change");
+        // });
+
+        $("#station_ids_").on('select2:select', function(e) {
+            var id = e.params.data.id;
+            var element = e.params.data.element;
+            var option = $(e.target).children('[value=' + id + ']');
+            stations = [...stations, element.value];
+            option.detach();
+            $(e.target).append(option).change();
+        });
     });
 </script>

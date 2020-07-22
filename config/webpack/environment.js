@@ -10,6 +10,7 @@ environment.plugins.append(
     "window.jQuery": "jquery",
     Popper: ["popper.js", "default"],
     select2: "select2",
+    'select2.sortable' : 'select2_sortable',
   })
 );
 

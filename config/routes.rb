@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   resources :rounds
   resources :stations
   resources :rounds_trackings
+
+  # get '*unmatched_route', to: 'application#raise_not_found'
 end

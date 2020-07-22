@@ -1,2 +1,3 @@
 class RoundTracking < ApplicationRecord
+    
 end
