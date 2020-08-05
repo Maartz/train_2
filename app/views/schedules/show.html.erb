@@ -1,7 +1,9 @@
-<p>
+<h2>
   <strong>Horaire: </strong>
   <%= @schedule.schedule.strftime("%H:%M") %>
-</p>
+</h2>
 
-<%= link_to 'Modifier', edit_schedule_path(@schedule), class: 'btn btn-primary' %>
-<%= link_to 'Retour', schedules_path, class: 'btn btn-secondary' %>
+<br />
+
+<%= link_to 'Modifier', edit_schedule_path(@schedule), class: 'btn btn-primary btn-lg' %>
+<%= link_to 'Retour', schedules_path, class: 'btn btn-secondary btn-lg' %>

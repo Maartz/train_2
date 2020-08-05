@@ -1,3 +1,2 @@
-class RoundTracking < ApplicationRecord
-    
+class RoundTracking < ApplicationRecord 
 end

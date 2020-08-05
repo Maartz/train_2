@@ -11,7 +11,7 @@
   <tbody>
     <% @schedules.each do |schedule| %>
       <tr>
-        <td><%= schedule.schedule.strftime("%H:%M") %></td>
+        <td> <h2> <%= schedule.schedule.strftime("%H:%M") %> </h2> </td>
         <td><%= link_to 'Voir', schedule, class: 'btn btn-success' %></td>
         <td><%= link_to 'Modifier', edit_schedule_path(schedule), class: 'btn btn-primary' %></td>
         <td><%= link_to 'Supprimer', schedule, class: 'btn btn-danger', method: :delete, data: { confirm: 'Êtes-vous sur?' }%></td>
@@ -22,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New Schedule', new_schedule_path %>
+<%= link_to 'Nouvel Horaire', new_schedule_path, class: "btn btn-primary btn-lg" %>
