@@ -10,4 +10,4 @@ User.create!(tgi: 'T0184152', email: 'william.martin@trixell-thalesgroup.com', a
 
 User.create!(tgi: 'T0147566', email: 'julien.biondi@trixell-thalesgroup.com', admin: true, password: 'Trixell01*', created_at: DateTime.now, updated_at: DateTime.now)
 
-User.create!(tg: 'T0063118', email: 'benjamin.lucatelli@trixell-thalesgroup.com', logistic: true, password: 'Trixell01*', created_at: DateTime.now, updated_at: DateTime.now)
+User.create!(tgi: 'T0063118', email: 'benjamin.lucatelli@trixell-thalesgroup.com', logistic: true, password: 'Trixell01*', created_at: DateTime.now, updated_at: DateTime.now)
